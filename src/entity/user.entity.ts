@@ -27,7 +27,7 @@ export class User extends BaseEntity {
   @Column({ type: 'varchar', length: 30 })
   name: string;
 
-  @Column({ type: 'tinyint' })
+  @Column({ type: 'smallint' })
   age: number;
 
   @CreateDateColumn({ name: 'createdAt' })
