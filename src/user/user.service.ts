@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../entity/user.entity';
+import { CreateUserDto } from './dto/createUser.dto';
+import { UpdateUserDto } from './dto/updateUser.dto';
 import { UserRepository } from './user.repository';
 
 @Injectable()
@@ -7,21 +10,24 @@ export class UserService {
   constructor(
     @InjectRepository(UserRepository) private userRepository: UserRepository,
   ) {}
-  private users = [];
 
-  deleteUser(id: number) {
-    throw new Error('Method not implemented.');
+  getAllUser(): Promise<User[]> {
+    return this.userRepository.findAll();
   }
-  updateUser(id: number, userData: any) {
-    throw new Error('Method not implemented.');
+
+  getUser(id: string): Promise<User> {
+    return this.userRepository.findById(id);
   }
-  createUser(userData: any) {
-    throw new Error('Method not implemented.');
+
+  createUser(createUserDto: CreateUserDto): Promise<boolean> {
+    return this.userRepository.onCreate(createUserDto);
   }
-  getUser(id: number) {
-    throw new Error('Method not implemented.');
+
+  updateUser(id: string, updateUserDto: UpdateUserDto): Promise<boolean> {
+    return this.userRepository.onChangeUser(id, updateUserDto);
   }
-  getAllUser() {
-    throw new Error('Method not implemented.');
+
+  deleteUser(id: string): Promise<boolean> {
+    return this.userRepository.onDelete(id);
   }
 }
