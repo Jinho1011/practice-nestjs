@@ -1,11 +1,14 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Unique,
+  UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 
@@ -24,7 +27,16 @@ export class Post extends BaseEntity {
   @Column({ type: 'bigint' })
   views: number;
 
+  @CreateDateColumn({ name: 'createdAt' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updatedAt' })
+  upadtedAt: Date;
+
+  @DeleteDateColumn({ name: 'deletedAt' })
+  deletedAt?: Date | null;
+
   @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: 'id' })
-  user: User;
+  userId: User;
 }
