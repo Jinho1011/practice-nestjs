@@ -4,10 +4,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
 } from 'typeorm';
+import { Post } from './post.entity';
 
 @Entity({ name: 'user' })
 @Unique(['userId'])
@@ -38,4 +40,7 @@ export class User extends BaseEntity {
 
   @DeleteDateColumn({ name: 'deletedAt' })
   deletedAt?: Date | null;
+
+  @OneToMany(() => Post, (post) => post.id)
+  postId: Post[];
 }
