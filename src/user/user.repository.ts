@@ -6,11 +6,11 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  async findAll() {
+  async findAll(): Promise<User[]> {
     return await this.find();
   }
 
-  async findById(id: string) {
+  async findById(id: string): Promise<User> {
     const user = await this.findOne({ where: { id } });
 
     if (!user) throw new NotFoundException('cannot find user');
